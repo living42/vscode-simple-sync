@@ -1,0 +1,48 @@
+{
+    "name": "vscode-simple-sync",
+    "displayName": "Simple Sync",
+    "description": "Little extension that help you sync your Code settings cross machines",
+    "version": "0.0.1",
+    "publisher": "living42",
+    "engines": {
+        "vscode": "^1.20.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "*"
+    ],
+    "license": "MIT",
+    "repository": {
+        "url": "https://github.com/living42/vscode-simple-sync"
+    },
+    "author": {
+        "name": "living42"
+    },
+    "main": "./out/extension",
+    "contributes": {},
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "npm run compile && node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "@types/mocha": "^2.2.42",
+        "@types/node": "^7.0.43",
+        "tslint": "^5.8.0",
+        "typescript": "^2.6.1",
+        "vscode": "^1.1.6"
+    },
+    "dependencies": {
+        "@types/chokidar": "^1.7.5",
+        "automerge": "^0.7.1",
+        "chokidar": "^2.0.2",
+        "json-stable-stringify": "^1.0.1",
+        "json5": "^0.5.1",
+        "jsondiffpatch": "^0.3.5",
+        "proper-lockfile": "^2.0.1"
+    }
+}
