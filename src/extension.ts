@@ -133,18 +133,23 @@ async function setup() {
   if ((await readdir(config.dir)).filter(x => x.match(/\.db$/)).length > 0) {
     let answer = await vscode.window.showInformationMessage(
       'Found some remote instances, what do you want to do?',
-      'Overwrite from',
-      'Overwrite to'
+      'Overwrite this instance from remote',
+      'Overwrite remote instances'
     );
 
     const store = new Store(path.join(config.dir, `${config.id}.db`));
     switch (answer) {
-      case 'Overwrite from':
+      case 'Overwrite this instance from remote':
         await mergeRemoteStores(store, config);
-        writeback(store);
+        await writeback(store);
+        const configuration = await getConfiguration();
+        await installExtensions(
+          Object.keys(store.doc.extensions).filter(x => x.slice(0, 1) !== '_'),
+          Object.keys(configuration.extensions).filter(x => x.slice(0, 1) !== '_')
+        );
         store.dump();
         break;
-      case 'Overwrite to':
+      case 'Overwrite remote instances':
         await mergeRemoteStores(store, config);
         updateStore(store, await getConfiguration());
         store.dump();
