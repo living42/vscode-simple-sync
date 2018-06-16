@@ -34,7 +34,7 @@
         "@types/node": "^7.0.62",
         "tslint": "^5.8.0",
         "typescript": "^2.8.3",
-        "vscode": "^1.1.17"
+        "vscode": "^1.1.18"
     },
     "dependencies": {
         "@types/chokidar": "^1.7.5",
