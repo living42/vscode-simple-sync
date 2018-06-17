@@ -140,7 +140,7 @@ async function setup() {
     const store = new Store(path.join(config.dir, `${config.id}.db`));
     switch (answer) {
       case 'Overwrite this instance from remote':
-        await mergeRemoteStores(store, config);
+        await mergeRemoteStores(store, config, true);
         await writeback(store);
         const configuration = await getConfiguration();
         await installExtensions(
@@ -187,7 +187,7 @@ async function watchingChanges(config: any, syncProcess: () => Promise<any>) {
   }
 }
 
-async function mergeRemoteStores(store: Store, config: any) {
+async function mergeRemoteStores(store: Store, config: any, force = false) {
   const files = await readdir(config.dir);
   const otherStoreFiles = files.filter(
     x => x.match(/\.db$/) && x !== `${config.id}.db`
@@ -202,7 +202,7 @@ async function mergeRemoteStores(store: Store, config: any) {
   for (let file of otherStoreFiles) {
     const storeState = state[file];
     const hash = await sha1sum(path.join(config.dir, file));
-    if (storeState && hash === storeState.hash) {
+    if (!force && storeState && hash === storeState.hash) {
       continue;
     }
     stateChanged = true;

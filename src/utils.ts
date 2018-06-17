@@ -38,7 +38,11 @@ export async function readConf(filename: string) {
       }
     });
   });
-  return JSON5.parse(buffer.toString());
+  try {
+    return JSON5.parse(buffer.toString());
+  } catch (e) {
+    return {}
+  }
 }
 
 export async function writeConf(filename: string, config: any) {
